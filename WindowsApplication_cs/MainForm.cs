@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 using DataOperations;
-using MessageDialogs;
+using static MessageDialogs.Dialogs;
 
 namespace WindowsApplication_cs
 {
@@ -14,11 +14,11 @@ namespace WindowsApplication_cs
         /// Containers for our customer and orders data
         /// which are setup in Operations class.
         /// </summary>
-        BindingSource bsMaster = new BindingSource();
-        BindingSource bsDetails = new BindingSource();
-        BindingSource bsOrderDetails = new BindingSource();
+        BindingSource _bsMaster = new BindingSource();
+        BindingSource _bsDetails = new BindingSource();
+        BindingSource _bsOrderDetails = new BindingSource();
 
-        List<StateItems> StateInformation;
+        List<StateItems> _stateInformation;
 
         public MainForm()
         {
@@ -27,7 +27,7 @@ namespace WindowsApplication_cs
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            Operations ops = new Operations();
+            var ops = new Operations();
 
             var DetailsBindingNavigatorKaren = new ToolStripButton()
             {
@@ -43,25 +43,25 @@ namespace WindowsApplication_cs
             if (!ops.HasErrors)
             {
 
-                StateInformation = ops.StateInformation;
+                _stateInformation = ops.StateInformation;
 
-                bsMaster = ops.Master;
-                bsDetails = ops.Details;
+                _bsMaster = ops.Master;
+                _bsDetails = ops.Details;
 
-                MasterDataGridView.DataSource = bsMaster;
+                MasterDataGridView.DataSource = _bsMaster;
                 DetailsDataGridView.AutoGenerateColumns = false;
 
-                DetailsDataGridView.DataSource = bsDetails;
+                DetailsDataGridView.DataSource = _bsDetails;
                 OrderDateColumn.ReadOnly = false;
                 UpdateButtonColumn.UseColumnTextForButtonValue = true;
 
-                MasterBindingNavigator.BindingSource = bsMaster;
+                MasterBindingNavigator.BindingSource = _bsMaster;
 
-                bsOrderDetails = ops.OrderDetails;
-                OrderDetailsDataGridView.DataSource = bsOrderDetails;
+                _bsOrderDetails = ops.OrderDetails;
+                OrderDetailsDataGridView.DataSource = _bsOrderDetails;
                 OrderDetailsDataGridView.Columns["id"].Visible = false;
                 OrderDetailsDataGridView.Columns["OrderId"].Visible = false;
-                DetailBindingNavigator.BindingSource = bsDetails;
+                DetailBindingNavigator.BindingSource = _bsDetails;
 
                 OrderDetailsDataGridView.Columns["ProductName"].HeaderText = "Product";
                 OrderDetailsDataGridView.Columns["UnitPrice"].HeaderText = "Unit price";
@@ -84,12 +84,12 @@ namespace WindowsApplication_cs
         /// </summary>
         private void EditCurrentCustomer()
         {
-            DataRow CustomerRow = ((DataRowView)bsMaster.Current).Row;
-            var f = new CustomerForm(false, StateInformation, ref CustomerRow);
+            DataRow CustomerRow = ((DataRowView)_bsMaster.Current).Row;
+            var customerForm = new CustomerForm(false, _stateInformation, ref CustomerRow);
 
             try
             {
-                if (f.ShowDialog() == DialogResult.OK)
+                if (customerForm.ShowDialog() == DialogResult.OK)
                 {
                     var ops = new Operations();
                     if (!(ops.UpdateCustomer(CustomerRow)))
@@ -100,7 +100,7 @@ namespace WindowsApplication_cs
             }
             finally
             {
-                f.Dispose();
+                customerForm.Dispose();
             }
         }
 
@@ -120,21 +120,21 @@ namespace WindowsApplication_cs
 
         private void MasterBindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            var f = new CustomerForm(true, StateInformation);
+            var customerForm = new CustomerForm(true, _stateInformation);
 
             try
             {
 
-                if (f.ShowDialog() == DialogResult.OK)
+                if (customerForm.ShowDialog() == DialogResult.OK)
                 {
 
                     Operations ops = new Operations();
                     int NewId = 0;
 
-                    if (ops.AddCustomer(f.txtFirstName.Text, f.txtLastName.Text, f.txtAddress.Text, f.txtCity.Text, f.cboStates.Text, f.txtZipCode.Text, ref NewId))
+                    if (ops.AddCustomer(customerForm.txtFirstName.Text, customerForm.txtLastName.Text, customerForm.txtAddress.Text, customerForm.txtCity.Text, customerForm.cboStates.Text, customerForm.txtZipCode.Text, ref NewId))
                     {
-                        var dt = ((DataSet)bsMaster.DataSource).Tables["Customer"];
-                        dt.Rows.Add(new object[] { NewId, f.txtFirstName.Text, f.txtLastName.Text, f.txtAddress.Text, f.txtCity.Text, f.cboStates.Text, f.txtZipCode.Text });
+                        var dt = ((DataSet)_bsMaster.DataSource).Tables["Customer"];
+                        dt.Rows.Add(new object[] { NewId, customerForm.txtFirstName.Text, customerForm.txtLastName.Text, customerForm.txtAddress.Text, customerForm.txtCity.Text, customerForm.cboStates.Text, customerForm.txtZipCode.Text });
                     }
                     else
                     {
@@ -145,7 +145,7 @@ namespace WindowsApplication_cs
             }
             finally
             {
-                f.Dispose();
+                customerForm.Dispose();
             }
         }
         /// <summary>
@@ -155,13 +155,13 @@ namespace WindowsApplication_cs
         /// <param name="e"></param>
         private void MasterBindingNavigatorDeleteCustomer_Click(object sender, EventArgs e)
         {
-            if (KarenDialogs.Question("Do you really want to remove this customer and all their orders?"))
+            if (Question("Do you really want to remove this customer and all their orders?"))
             {
                 var ops = new Operations();
-                int CustomerId = ((DataRowView)bsMaster.Current).Row.Field<int>("id");
+                int CustomerId = ((DataRowView)_bsMaster.Current).Row.Field<int>("id");
                 if (ops.RemoveCustomerAndOrders(CustomerId))
                 {
-                    bsMaster.RemoveCurrent();
+                    _bsMaster.RemoveCurrent();
                 }
                 else
                 {
@@ -187,15 +187,15 @@ namespace WindowsApplication_cs
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn && e.RowIndex >= 0)
             {
-                if (bsDetails.Current != null)
+                if (_bsDetails.Current != null)
                 {
 
-                    DateTime OrderDate = ((DataRowView)bsDetails.Current).Row.Field<DateTime>("OrderDate");
-                    int OrderId = ((DataRowView)bsDetails.Current).Row.Field<int>("id");
+                    DateTime orderDate = ((DataRowView)_bsDetails.Current).Row.Field<DateTime>("OrderDate");
+                    int orderId = ((DataRowView)_bsDetails.Current).Row.Field<int>("id");
 
                     var ops = new Operations();
 
-                    if (!(ops.UpdateOrder(OrderId, OrderDate)))
+                    if (!(ops.UpdateOrder(orderId, orderDate)))
                     {
                         MessageBox.Show($"Failed to update: {ops.ExceptionMessage}");
                     }
@@ -211,36 +211,36 @@ namespace WindowsApplication_cs
 
                 e.Handled = true;
 
-                if (bsDetails.Current != null)
+                if (_bsDetails.Current != null)
                 {
-                    var f = new OrderForm();
+                    var orderForm = new OrderForm();
                     try
                     {
-                        DateTime OrderDate = ((DataRowView)bsDetails.Current).Row.Field<DateTime>("OrderDate");
-                        f.DateTimePicker1.Value = OrderDate;
+                        DateTime OrderDate = ((DataRowView)_bsDetails.Current).Row.Field<DateTime>("OrderDate");
+                        orderForm.DateTimePicker1.Value = OrderDate;
 
-                        if (f.ShowDialog() == DialogResult.OK)
+                        if (orderForm.ShowDialog() == DialogResult.OK)
                         {
 
-                            OrderDate = f.DateTimePicker1.Value;
+                            OrderDate = orderForm.DateTimePicker1.Value;
 
-                            int OrderId = ((DataRowView)bsDetails.Current).Row.Field<int>("id");
+                            int orderId = ((DataRowView)_bsDetails.Current).Row.Field<int>("id");
                             var ops = new Operations();
 
-                            if (!(ops.UpdateOrder(OrderId, OrderDate)))
+                            if (!(ops.UpdateOrder(orderId, OrderDate)))
                             {
                                 MessageBox.Show($"Failed to update: {ops.ExceptionMessage}");
                             }
                             else
                             {
-                                ((DataRowView)bsDetails.Current).Row.SetField<DateTime>("OrderDate", OrderDate);
+                                ((DataRowView)_bsDetails.Current).Row.SetField<DateTime>("OrderDate", OrderDate);
                             }
                         }
 
                     }
                     finally
                     {
-                        f.Dispose();
+                        orderForm.Dispose();
                     }
 
                 }
@@ -249,23 +249,23 @@ namespace WindowsApplication_cs
 
         private void DetailsBindingNavigatorAddNewItem_Click(object sender, EventArgs e)
         {
-            var f = new OrderForm();
+            var orderForm = new OrderForm();
 
             try
             {
-                if (f.ShowDialog() == DialogResult.OK)
+                if (orderForm.ShowDialog() == DialogResult.OK)
                 {
                     int id = 0;
-                    int CurrentCustomerId = ((DataRowView)bsMaster.Current).Row.Field<int>("id");
-                    string InvoiceValue = "";
+                    int currentCustomerId = ((DataRowView)_bsMaster.Current).Row.Field<int>("id");
+                    string invoiceValue = "";
                     var ops = new Operations();
 
-                    ops.AddOrder(CurrentCustomerId, f.DateTimePicker1.Value, ref InvoiceValue, ref id);
+                    ops.AddOrder(currentCustomerId, orderForm.DateTimePicker1.Value, ref invoiceValue, ref id);
 
                     if (!ops.HasErrors)
                     {
-                        DataTable detailTable = ((DataSet)(((BindingSource)bsDetails.DataSource).DataSource)).Tables["Orders"];
-                        detailTable.Rows.Add(new object[] { id, CurrentCustomerId, DateTime.Now, InvoiceValue });
+                        DataTable detailTable = ((DataSet)(((BindingSource)_bsDetails.DataSource).DataSource)).Tables["Orders"];
+                        detailTable.Rows.Add(new object[] { id, currentCustomerId, DateTime.Now, invoiceValue });
                     }
                     else
                     {
@@ -276,16 +276,16 @@ namespace WindowsApplication_cs
             }
             finally
             {
-                f.Dispose();
+                orderForm.Dispose();
             }
         }
 
         private void DetailsBindingNavigatorDeleteItem_Click(object sender, EventArgs e)
         {
-            if (KarenDialogs.Question("Remove this order?"))
+            if (Question("Remove this order?"))
             {
 
-                int OrderId = ((DataRowView)bsDetails.Current).Row.Field<int>("id");
+                int OrderId = ((DataRowView)_bsDetails.Current).Row.Field<int>("id");
 
                 var ops = new Operations();
 
@@ -295,7 +295,7 @@ namespace WindowsApplication_cs
                 }
                 else
                 {
-                    bsDetails.RemoveCurrent();
+                    _bsDetails.RemoveCurrent();
                 }
 
             }
@@ -307,9 +307,9 @@ namespace WindowsApplication_cs
         /// <param name="e"></param>
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            if (bsDetails.Current != null)
+            if (_bsDetails.Current != null)
             {
-                var parentId = ((DataRowView)bsDetails.Current).Row.GetParentRow("CustomerOrders").Field<int>("id");
+                var parentId = ((DataRowView)_bsDetails.Current).Row.GetParentRow("CustomerOrders").Field<int>("id");
                 MessageBox.Show($"Parent id: {parentId}");
 
             }

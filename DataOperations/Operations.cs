@@ -9,7 +9,7 @@ namespace DataOperations
 
     public class Operations
     {
-        private string ConnectionString = "Data Source=KARENS-PC;Initial Catalog=MasterDetailSimple;Integrated Security=True";
+        private string ConnectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=MasterDetailSimple;Integrated Security=True";
         public bool HasErrors { get; set; }
         public string ExceptionMessage { get; set; }
 

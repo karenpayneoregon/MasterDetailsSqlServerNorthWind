@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace MessageDialogs
 {
-    public static class KarenDialogs
+    public static class Dialogs
     {
         public static bool Question(string Text)
         {
