@@ -59,7 +59,9 @@ namespace DataOperations
         /// </remarks>
         private void GetStateInformation()
         {
+            
             StateInformation = new List<StateItems> { new StateItems { Identifier = -1, Name = "Select one" } };
+            
             using (var cn = new SqlConnection { ConnectionString = ConnectionString })
             {
                 using (var cmd = new SqlCommand { Connection = cn, CommandText = "SELECT id,StateName,StateAbbrev FROM StateLookup" })
@@ -176,7 +178,7 @@ namespace DataOperations
         {
             bool success = false;
 
-            string sql = "UPDATE Orders  SET OrderDate = @OrderDate WHERE id = @Id";
+            var sql = "UPDATE Orders  SET OrderDate = @OrderDate WHERE id = @Id";
 
             using (var cn = new SqlConnection { ConnectionString = ConnectionString })
             {
@@ -208,7 +210,7 @@ namespace DataOperations
         {
             bool success = false;
 
-            string sql = "DELETE FROM [Orders] WHERE id = @id";
+            var sql = "DELETE FROM [Orders] WHERE id = @id";
 
             using (var cn = new SqlConnection { ConnectionString = ConnectionString })
             {
@@ -232,7 +234,7 @@ namespace DataOperations
             return success;
         }
         /// <summary>
-        /// Add a new customer
+        /// Add a new customer - see also AddCustomer1 below with a slight twist to the sql statement
         /// </summary>
         /// <param name="FirstName"></param>
         /// <param name="LastName"></param>
@@ -290,9 +292,50 @@ namespace DataOperations
 
             return success;
         }
+        public bool AddCustomer1(string FirstName, string LastName, string Address, string City, string State, string ZipCode, ref int NewPrimaryKeyValue)
+        {
+            bool success = false;
+
+            using (var cn = new SqlConnection { ConnectionString = ConnectionString })
+            {
+                using (var cmd = new SqlCommand { Connection = cn })
+                {
+                    cmd.CommandText =
+                        "INSERT INTO Customer (FirstName,LastName,[Address],City,[State],ZipCode) " + // insert
+                        "VALUES (@FirstName,@LastName,@Address,@City,@State,@ZipCode);" +             // insert
+                        "SELECT CAST(scope_identity() AS int);";                                      // get new primary key
+
+                    try
+                    {
+                        cmd.Parameters.AddWithValue("@FirstName", FirstName);
+                        cmd.Parameters.AddWithValue("@LastName", LastName);
+                        cmd.Parameters.AddWithValue("@Address", Address);
+                        cmd.Parameters.AddWithValue("@City", City);
+                        cmd.Parameters.AddWithValue("@State", State);
+                        cmd.Parameters.AddWithValue("@ZipCode", ZipCode);
+
+                        cn.Open();
+                        
+                        NewPrimaryKeyValue = Convert.ToInt32(cmd.ExecuteScalar());
+                        success = true;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        HasErrors = true;
+                        ExceptionMessage = ex.Message;
+                        NewPrimaryKeyValue = -1;
+                        success = false;
+                    }
+                }
+            }
+
+            return success;
+        }
+
         /// <summary>
-        /// Remove customer (master) by primary key along with tha orders (childern).
-        /// To be safe a transation is used.
+        /// Remove customer (master) by primary key along with tha orders (children).
+        /// To be safe a transaction is used.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
