@@ -332,6 +332,113 @@ namespace DataOperations
 
             return success;
         }
+        /// <summary>
+        /// Variation of AddCustomer1 by using Parameters.Add rather than Parameters.AddWithValue
+        /// </summary>
+        /// <param name="FirstName"></param>
+        /// <param name="LastName"></param>
+        /// <param name="Address"></param>
+        /// <param name="City"></param>
+        /// <param name="State"></param>
+        /// <param name="ZipCode"></param>
+        /// <param name="NewPrimaryKeyValue"></param>
+        /// <returns></returns>
+        public bool AddCustomer2(string FirstName, string LastName, string Address, string City, string State, string ZipCode, ref int NewPrimaryKeyValue)
+        {
+            bool success = false;
+
+            using (var cn = new SqlConnection { ConnectionString = ConnectionString })
+            {
+                using (var cmd = new SqlCommand { Connection = cn })
+                {
+                    cmd.CommandText =
+                        "INSERT INTO Customer (FirstName,LastName,[Address],City,[State],ZipCode) " + // insert
+                        "VALUES (@FirstName,@LastName,@Address,@City,@State,@ZipCode);" +             // insert
+                        "SELECT CAST(scope_identity() AS int);";                                      // get new primary key
+
+                    try
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@FirstName", SqlDbType.NVarChar)).Value = FirstName;
+                        cmd.Parameters.Add(new SqlParameter("@LastName", SqlDbType.NVarChar)).Value = LastName;
+                        cmd.Parameters.Add(new SqlParameter("@Address", SqlDbType.NVarChar)).Value = Address;
+                        cmd.Parameters.Add(new SqlParameter("@City", SqlDbType.NVarChar)).Value = City;
+                        cmd.Parameters.Add(new SqlParameter("@State", SqlDbType.NVarChar)).Value = State;
+                        cmd.Parameters.Add(new SqlParameter("@ZipCode", SqlDbType.NVarChar)).Value = ZipCode;
+
+                        cn.Open();
+
+                        NewPrimaryKeyValue = Convert.ToInt32(cmd.ExecuteScalar());
+                        success = true;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        HasErrors = true;
+                        ExceptionMessage = ex.Message;
+                        NewPrimaryKeyValue = -1;
+                        success = false;
+                    }
+                }
+            }
+
+            return success;
+        }
+        /// <summary>
+        /// Variation of AddCustomer2 by passing a customer object. Set If property of the customer directly
+        /// </summary>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public bool AddCustomer3(Customer customer)
+        {
+            bool success = false;
+
+            using (var cn = new SqlConnection { ConnectionString = ConnectionString })
+            {
+                using (var cmd = new SqlCommand { Connection = cn })
+                {
+                    cmd.CommandText =
+                        "INSERT INTO Customer (FirstName,LastName,[Address],City,[State],ZipCode) " + // insert
+                        "VALUES (@FirstName,@LastName,@Address,@City,@State,@ZipCode);" +             // insert
+                        "SELECT CAST(scope_identity() AS int);";                                      // get new primary key
+
+                    try
+                    {
+                        cmd.Parameters.Add(new SqlParameter("@FirstName", SqlDbType.NVarChar))
+                            .Value = customer.FirstName;
+                        
+                        cmd.Parameters.Add(new SqlParameter("@LastName", SqlDbType.NVarChar))
+                            .Value = customer.LastName;
+                        
+                        cmd.Parameters.Add(new SqlParameter("@Address", SqlDbType.NVarChar))
+                            .Value = customer.Address;
+                        
+                        cmd.Parameters.Add(new SqlParameter("@City", SqlDbType.NVarChar))
+                            .Value = customer.City;
+                        
+                        cmd.Parameters.Add(new SqlParameter("@State", SqlDbType.NVarChar))
+                            .Value = customer.State;
+                        
+                        cmd.Parameters.Add(new SqlParameter("@ZipCode", SqlDbType.NVarChar))
+                            .Value = customer.ZipCode;
+
+                        cn.Open();
+
+                        customer.Id = Convert.ToInt32(cmd.ExecuteScalar());
+                        success = true;
+
+                    }
+                    catch (Exception ex)
+                    {
+                        HasErrors = true;
+                        ExceptionMessage = ex.Message;
+                        customer.Id = -1;
+                        success = false;
+                    }
+                }
+            }
+
+            return success;
+        }
 
         /// <summary>
         /// Remove customer (master) by primary key along with tha orders (children).
