@@ -5,14 +5,10 @@ namespace MessageDialogs
 {
     public static class Dialogs
     {
-        public static bool Question(string Text)
-        {
-            return (MessageBox.Show(Text, "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes);
-        }
-        public static bool Question(string Text, string Title)
-        {
-            return (MessageBox.Show(Text, Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes);
-        }
+        public static bool Question(string Text) => (MessageBox.Show(Text, "Question", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes);
+
+        public static bool Question(string Text, string Title) => (MessageBox.Show(Text, Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) == DialogResult.Yes);
+
         public static bool Question(string Text, string Title, DialogResult DefaultButton)
         {
             MessageBoxDefaultButton db = 0;

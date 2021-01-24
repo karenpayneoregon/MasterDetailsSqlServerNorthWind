@@ -6,7 +6,6 @@ using System.Windows.Forms;
 
 namespace DataOperations
 {
-
     public class Operations
     {
         private string ConnectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=MasterDetailSimple;Integrated Security=True";
@@ -60,13 +59,15 @@ namespace DataOperations
         /// </remarks>
         private void GetStateInformation()
         {
-            StateInformation = new List<StateItems> {new StateItems {Identifier = -1, Name = "Select one"}};
+            StateInformation = new List<StateItems> { new StateItems { Identifier = -1, Name = "Select one" } };
             using (var cn = new SqlConnection { ConnectionString = ConnectionString })
             {
                 using (var cmd = new SqlCommand { Connection = cn, CommandText = "SELECT id,StateName,StateAbbrev FROM StateLookup" })
                 {
                     cn.Open();
+
                     var reader = cmd.ExecuteReader();
+
                     while (reader.Read())
                     {
                         StateInformation.Add(new StateItems { Identifier = reader.GetInt32(0), Name = reader.GetString(1), Abbreviation = reader.GetString(2) });
@@ -81,15 +82,16 @@ namespace DataOperations
         /// </summary>
         public void LoadData()
         {
-
             var ds = new DataSet();
 
             using (var cn = new SqlConnection { ConnectionString = ConnectionString })
             {
                 var da = new SqlDataAdapter("SELECT id,FirstName,LastName,Address,City,State,ZipCode FROM Customer", cn);
+
                 try
                 {
                     da.Fill(ds, "Customer");
+
                     DataTable dt = ds.Tables["Customer"];
 
                     da = new SqlDataAdapter("SELECT id,CustomerId,OrderDate,Invoice FROM Orders", cn);
@@ -108,7 +110,6 @@ namespace DataOperations
 
                     OrderDetails.DataSource = Details;
                     OrderDetails.DataMember = ds.Relations[1].RelationName;
-
                 }
                 catch (Exception ex)
                 {
@@ -136,7 +137,6 @@ namespace DataOperations
             {
                 using (var cmd = new SqlCommand { Connection = cn })
                 {
-
                     cmd.CommandText = "INSERT INTO Orders (CustomerId,OrderDate,Invoice) VALUES (@CustomerId,@OrderDate,@Invoice)";
 
                     try
@@ -149,6 +149,7 @@ namespace DataOperations
                         cmd.Parameters.AddWithValue("@Invoice", Invoice);
 
                         int result = cmd.ExecuteNonQuery();
+
                         if (result == 1)
                         {
                             cmd.CommandText = "Select @@Identity";
@@ -161,7 +162,6 @@ namespace DataOperations
                         ExceptionMessage = ex.Message;
                         NewPrimaryKeyValue = -1;
                     }
-
                 }
             }
         }
@@ -182,7 +182,6 @@ namespace DataOperations
             {
                 using (var cmd = new SqlCommand { Connection = cn, CommandText = sql })
                 {
-
                     cmd.Parameters.AddWithValue("@OrderDate", OrderDate);
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -200,7 +199,6 @@ namespace DataOperations
             }
 
             return success;
-
         }
         /// <summary>
         /// Remove a single order
@@ -216,7 +214,6 @@ namespace DataOperations
             {
                 using (var cmd = new SqlCommand { Connection = cn, CommandText = sql })
                 {
-
                     cmd.Parameters.AddWithValue("id", OrderId);
 
                     try
@@ -233,7 +230,6 @@ namespace DataOperations
             }
 
             return success;
-
         }
         /// <summary>
         /// Add a new customer
@@ -252,12 +248,16 @@ namespace DataOperations
         /// </remarks>
         public bool AddCustomer(string FirstName, string LastName, string Address, string City, string State, string ZipCode, ref int NewPrimaryKeyValue)
         {
-            bool Success = false;
+            bool success = false;
+
             using (var cn = new SqlConnection { ConnectionString = ConnectionString })
             {
                 using (var cmd = new SqlCommand { Connection = cn })
                 {
-                    cmd.CommandText = "INSERT INTO Customer (FirstName,LastName,[Address],City,[State],ZipCode) VALUES (@FirstName,@LastName,@Address,@City,@State,@ZipCode)";
+                    cmd.CommandText = 
+                        "INSERT INTO Customer (FirstName,LastName,[Address],City,[State],ZipCode) " + 
+                        "VALUES (@FirstName,@LastName,@Address,@City,@State,@ZipCode)";
+                    
                     try
                     {
                         cmd.Parameters.AddWithValue("@FirstName", FirstName);
@@ -266,29 +266,29 @@ namespace DataOperations
                         cmd.Parameters.AddWithValue("@City", City);
                         cmd.Parameters.AddWithValue("@State", State);
                         cmd.Parameters.AddWithValue("@ZipCode", ZipCode);
+                        
                         cn.Open();
 
                         int result = cmd.ExecuteNonQuery();
+
                         if (result == 1)
                         {
                             cmd.CommandText = "Select @@Identity";
                             NewPrimaryKeyValue = Convert.ToInt32(cmd.ExecuteScalar());
-                            Success = true;
+                            success = true;
                         }
-
                     }
                     catch (Exception ex)
                     {
                         HasErrors = true;
                         ExceptionMessage = ex.Message;
                         NewPrimaryKeyValue = -1;
-                        Success = false;
+                        success = false;
                     }
                 }
             }
 
-            return Success;
-
+            return success;
         }
         /// <summary>
         /// Remove customer (master) by primary key along with tha orders (childern).
@@ -298,7 +298,6 @@ namespace DataOperations
         /// <returns></returns>
         public bool RemoveCustomerAndOrders(int id)
         {
-
             string sql = "DELETE FROM Orders WHERE CustomerId =  @CustomerId";
             bool success = false;
 
@@ -310,7 +309,6 @@ namespace DataOperations
 
                 using (var cmd = new SqlCommand { Connection = cn, CommandText = sql, Transaction = trans })
                 {
-
                     cmd.Parameters.AddWithValue("@CustomerId", id);
 
                     try
@@ -341,7 +339,6 @@ namespace DataOperations
             }
 
             return success;
-
         }
         /// <summary>
         /// Update a customer
@@ -350,7 +347,6 @@ namespace DataOperations
         /// <returns></returns>
         public bool UpdateCustomer(DataRow CustomerRow)
         {
-
             bool success = false;
 
             string sql = "UPDATE Customer  SET FirstName = @FirstName,LastName = @LastName,[Address] = @Address,City = @City,[State] = @State,ZipCode = @ZipCode WHERE id = @Id";
@@ -359,7 +355,6 @@ namespace DataOperations
             {
                 using (var cmd = new SqlCommand { Connection = cn, CommandText = sql })
                 {
-
                     cmd.Parameters.AddWithValue("@FirstName", CustomerRow.Field<string>("FirstName"));
                     cmd.Parameters.AddWithValue("@LastName", CustomerRow.Field<string>("LastName"));
                     cmd.Parameters.AddWithValue("Address", CustomerRow.Field<string>("Address"));
@@ -382,7 +377,6 @@ namespace DataOperations
             }
 
             return success;
-
         }
 
         /// <summary>
@@ -395,7 +389,6 @@ namespace DataOperations
         /// <returns></returns>
         public string GenerateInvoice(SqlConnection cn)
         {
-
             string result = "";
             string sql = "SELECT CONVERT(VARCHAR(4), GETDATE(), 12) + RIGHT('0000' + CAST( NEXT VALUE FOR dbo.GetInvoiceNumber AS VARCHAR(3)),4)";
 
@@ -405,7 +398,6 @@ namespace DataOperations
             }
 
             return result;
-
         }
     }
 }
