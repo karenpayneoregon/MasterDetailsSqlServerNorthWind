@@ -134,7 +134,7 @@ namespace WindowsApplication_cs
                     if (ops.AddCustomer(customerForm.txtFirstName.Text, customerForm.txtLastName.Text, customerForm.txtAddress.Text, customerForm.txtCity.Text, customerForm.cboStates.Text, customerForm.txtZipCode.Text, ref NewId))
                     {
                         var dt = ((DataSet)_bsMaster.DataSource).Tables["Customer"];
-                        dt.Rows.Add(new object[] { NewId, customerForm.txtFirstName.Text, customerForm.txtLastName.Text, customerForm.txtAddress.Text, customerForm.txtCity.Text, customerForm.cboStates.Text, customerForm.txtZipCode.Text });
+                        dt.Rows.Add(NewId, customerForm.txtFirstName.Text, customerForm.txtLastName.Text, customerForm.txtAddress.Text, customerForm.txtCity.Text, customerForm.cboStates.Text, customerForm.txtZipCode.Text);
                     }
                     else
                     {
