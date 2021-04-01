@@ -31,13 +31,13 @@ Public Class CalendarColumn
     ''' </summary>
     ''' <returns></returns>
     ''' <remarks>
-    ''' kevininstructor
+    ''' karen payne
     ''' This is needed to persist our custom property DateFormat
     ''' </remarks>
     Public Overrides Function Clone() As Object
-        Dim TheCopy As CalendarColumn = DirectCast(MyBase.Clone(), CalendarColumn)
-        TheCopy.DateFormat = Me.DateFormat
-        Return TheCopy
+        Dim theCopy As CalendarColumn = DirectCast(MyBase.Clone(), CalendarColumn)
+        theCopy.DateFormat = Me.DateFormat
+        Return theCopy
     End Function
     Public Sub New()
         MyBase.New(New CalendarCell())
@@ -46,12 +46,12 @@ Public Class CalendarColumn
         Get
             Return MyBase.CellTemplate
         End Get
-        Set(ByVal value As DataGridViewCell)
+        Set
             ' Ensure that the cell used for the template is a CalendarCell.
-            If Not (value Is Nothing) AndAlso Not value.GetType().IsAssignableFrom(GetType(CalendarCell)) Then
+            If Not (Value Is Nothing) AndAlso Not Value.GetType().IsAssignableFrom(GetType(CalendarCell)) Then
                 Throw New InvalidCastException("Must be a CalendarCell")
             End If
-            MyBase.CellTemplate = value
+            MyBase.CellTemplate = Value
         End Set
     End Property
 End Class
@@ -59,7 +59,7 @@ Public Class CalendarCell
     Inherits DataGridViewTextBoxCell
     Public Sub New()
     End Sub
-    Public Overrides Sub InitializeEditingControl(ByVal rowIndex As Integer, ByVal initialFormattedValue As Object, ByVal dataGridViewCellStyle As DataGridViewCellStyle)
+    Public Overrides Sub InitializeEditingControl(rowIndex As Integer, initialFormattedValue As Object, dataGridViewCellStyle As DataGridViewCellStyle)
         ' Set the value of the editing control to the current cell value.
         MyBase.InitializeEditingControl(rowIndex, initialFormattedValue, dataGridViewCellStyle)
 
@@ -76,7 +76,7 @@ Public Class CalendarCell
     End Sub
     Public Overrides ReadOnly Property EditType() As Type
         Get
-            ' Return the type of the editing contol that CalendarCell uses.
+            ' Return the type of the editing control that CalendarCell uses.
             Return GetType(CalendarEditingControl)
         End Get
     End Property
@@ -88,7 +88,7 @@ Public Class CalendarCell
     End Property
     Public Overrides ReadOnly Property DefaultNewRowValue() As Object
         Get
-            ' Kevininstructor changed from  "Use the current date and time as the default value" to DbNullValue
+            ' Karen Payne changed from  "Use the current date and time as the default value" to DbNullValue
             Return DBNull.Value
         End Get
     End Property
@@ -112,9 +112,9 @@ Class CalendarEditingControl
         Get
             Return Me.Value.ToString(Me.CustomFormat)
         End Get
-        Set(ByVal value As Object)
-            If TypeOf value Is [String] Then
-                Me.Value = DateTime.Parse(CStr(value))
+        Set
+            If TypeOf Value Is [String] Then
+                Me.Value = DateTime.Parse(CStr(Value))
             End If
         End Set
     End Property
@@ -131,8 +131,8 @@ Class CalendarEditingControl
         Get
             Return rowIndexNumber
         End Get
-        Set(ByVal value As Integer)
-            rowIndexNumber = value
+        Set
+            rowIndexNumber = Value
         End Set
     End Property
     Public Function EditingControlWantsInputKey(ByVal key As Keys, ByVal dataGridViewWantsInputKey As Boolean) As Boolean Implements IDataGridViewEditingControl.EditingControlWantsInputKey
@@ -156,16 +156,16 @@ Class CalendarEditingControl
         Get
             Return dataGridViewControl
         End Get
-        Set(ByVal value As DataGridView)
-            dataGridViewControl = value
+        Set
+            dataGridViewControl = Value
         End Set
     End Property
     Public Property EditingControlValueChanged() As Boolean Implements IDataGridViewEditingControl.EditingControlValueChanged
         Get
             Return valueIsChanged
         End Get
-        Set(ByVal value As Boolean)
-            valueIsChanged = value
+        Set
+            valueIsChanged = Value
         End Set
     End Property
     Public ReadOnly Property EditingControlCursor() As Cursor Implements IDataGridViewEditingControl.EditingPanelCursor
@@ -173,7 +173,7 @@ Class CalendarEditingControl
             Return MyBase.Cursor
         End Get
     End Property
-    Protected Overrides Sub OnValueChanged(ByVal eventargs As EventArgs)
+    Protected Overrides Sub OnValueChanged(eventargs As EventArgs)
         ' Notify the DataGridView that the contents of the cell have changed.
         valueIsChanged = True
         EditingControlDataGridView.NotifyCurrentCellDirty(True)

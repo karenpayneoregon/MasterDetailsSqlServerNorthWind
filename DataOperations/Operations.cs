@@ -124,16 +124,16 @@ namespace DataOperations
         /// <summary>
         /// Add new order for a customer
         /// </summary>
-        /// <param name="CustomerId">Identifies the customer for this order</param>
-        /// <param name="OrderDate"></param>
-        /// <param name="Invoice"></param>
-        /// <param name="NewPrimaryKeyValue">new primary key for new order row</param>
+        /// <param name="customerId">Identifies the customer for this order</param>
+        /// <param name="orderDate"></param>
+        /// <param name="invoice"></param>
+        /// <param name="newPrimaryKeyValue">new primary key for new order row</param>
         /// <remarks>
         /// Here I'm using NewPrimaryKeyValue as success of the operations
         /// while in AddCustomer I use a function returning a bool. I simply
         /// wanted to show two variations on how one might write this code.
         /// </remarks>
-        public void AddOrder(int CustomerId, DateTime OrderDate, ref string Invoice, ref int NewPrimaryKeyValue)
+        public void AddOrder(int customerId, DateTime orderDate, ref string invoice, ref int newPrimaryKeyValue)
         {
             using (var cn = new SqlConnection { ConnectionString = ConnectionString })
             {
@@ -145,24 +145,24 @@ namespace DataOperations
                     {
                         cn.Open();
 
-                        cmd.Parameters.AddWithValue("@CustomerId", CustomerId);
+                        cmd.Parameters.AddWithValue("@CustomerId", customerId);
                         cmd.Parameters.AddWithValue("@OrderDate", DateTime.Now);
-                        Invoice = GenerateInvoice(cn);
-                        cmd.Parameters.AddWithValue("@Invoice", Invoice);
+                        invoice = GenerateInvoice(cn);
+                        cmd.Parameters.AddWithValue("@Invoice", invoice);
 
                         int result = cmd.ExecuteNonQuery();
 
                         if (result == 1)
                         {
                             cmd.CommandText = "Select @@Identity";
-                            NewPrimaryKeyValue = Convert.ToInt32(cmd.ExecuteScalar());
+                            newPrimaryKeyValue = Convert.ToInt32(cmd.ExecuteScalar());
                         }
                     }
                     catch (Exception ex)
                     {
                         HasErrors = true;
                         ExceptionMessage = ex.Message;
-                        NewPrimaryKeyValue = -1;
+                        newPrimaryKeyValue = -1;
                     }
                 }
             }
@@ -172,9 +172,9 @@ namespace DataOperations
         /// cases a business rule to not permit the value to change.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="OrderDate"></param>
+        /// <param name="orderDate"></param>
         /// <returns></returns>
-        public bool UpdateOrder(int id, DateTime OrderDate)
+        public bool UpdateOrder(int id, DateTime orderDate)
         {
             bool success = false;
 
@@ -184,7 +184,7 @@ namespace DataOperations
             {
                 using (var cmd = new SqlCommand { Connection = cn, CommandText = sql })
                 {
-                    cmd.Parameters.AddWithValue("@OrderDate", OrderDate);
+                    cmd.Parameters.AddWithValue("@OrderDate", orderDate);
                     cmd.Parameters.AddWithValue("@id", id);
 
                     try
@@ -205,8 +205,8 @@ namespace DataOperations
         /// <summary>
         /// Remove a single order
         /// </summary>
-        /// <param name="OrderId">Primary key to identify a valid order record</param>
-        public bool RemoveSingleOrder(int OrderId)
+        /// <param name="orderId">Primary key to identify a valid order record</param>
+        public bool RemoveSingleOrder(int orderId)
         {
             bool success = false;
 
@@ -216,7 +216,7 @@ namespace DataOperations
             {
                 using (var cmd = new SqlCommand { Connection = cn, CommandText = sql })
                 {
-                    cmd.Parameters.AddWithValue("id", OrderId);
+                    cmd.Parameters.AddWithValue("id", orderId);
 
                     try
                     {
@@ -236,19 +236,19 @@ namespace DataOperations
         /// <summary>
         /// Add a new customer - see also AddCustomer1 below with a slight twist to the sql statement
         /// </summary>
-        /// <param name="FirstName"></param>
-        /// <param name="LastName"></param>
-        /// <param name="Address"></param>
-        /// <param name="City"></param>
-        /// <param name="State"></param>
-        /// <param name="ZipCode"></param>
-        /// <param name="NewPrimaryKeyValue">new primary key for newly added customer row</param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="address"></param>
+        /// <param name="city"></param>
+        /// <param name="state"></param>
+        /// <param name="zipCode"></param>
+        /// <param name="newPrimaryKeyValue">new primary key for newly added customer row</param>
         /// <returns></returns>
         /// <remarks>
         /// See comments in AddOrder as I did this method different than AddOrder
         /// to show variations.
         /// </remarks>
-        public bool AddCustomer(string FirstName, string LastName, string Address, string City, string State, string ZipCode, ref int NewPrimaryKeyValue)
+        public bool AddCustomer(string firstName, string lastName, string address, string city, string state, string zipCode, ref int newPrimaryKeyValue)
         {
             bool success = false;
 
@@ -262,12 +262,12 @@ namespace DataOperations
                     
                     try
                     {
-                        cmd.Parameters.AddWithValue("@FirstName", FirstName);
-                        cmd.Parameters.AddWithValue("@LastName", LastName);
-                        cmd.Parameters.AddWithValue("@Address", Address);
-                        cmd.Parameters.AddWithValue("@City", City);
-                        cmd.Parameters.AddWithValue("@State", State);
-                        cmd.Parameters.AddWithValue("@ZipCode", ZipCode);
+                        cmd.Parameters.AddWithValue("@FirstName", firstName);
+                        cmd.Parameters.AddWithValue("@LastName", lastName);
+                        cmd.Parameters.AddWithValue("@Address", address);
+                        cmd.Parameters.AddWithValue("@City", city);
+                        cmd.Parameters.AddWithValue("@State", state);
+                        cmd.Parameters.AddWithValue("@ZipCode", zipCode);
                         
                         cn.Open();
 
@@ -276,7 +276,7 @@ namespace DataOperations
                         if (result == 1)
                         {
                             cmd.CommandText = "Select @@Identity";
-                            NewPrimaryKeyValue = Convert.ToInt32(cmd.ExecuteScalar());
+                            newPrimaryKeyValue = Convert.ToInt32(cmd.ExecuteScalar());
                             success = true;
                         }
                     }
@@ -284,7 +284,7 @@ namespace DataOperations
                     {
                         HasErrors = true;
                         ExceptionMessage = ex.Message;
-                        NewPrimaryKeyValue = -1;
+                        newPrimaryKeyValue = -1;
                         success = false;
                     }
                 }
@@ -292,7 +292,7 @@ namespace DataOperations
 
             return success;
         }
-        public bool AddCustomer1(string FirstName, string LastName, string Address, string City, string State, string ZipCode, ref int NewPrimaryKeyValue)
+        public bool AddCustomer1(string firstName, string lastName, string address, string city, string state, string zipCode, ref int newPrimaryKeyValue)
         {
             bool success = false;
 
@@ -307,16 +307,16 @@ namespace DataOperations
 
                     try
                     {
-                        cmd.Parameters.AddWithValue("@FirstName", FirstName);
-                        cmd.Parameters.AddWithValue("@LastName", LastName);
-                        cmd.Parameters.AddWithValue("@Address", Address);
-                        cmd.Parameters.AddWithValue("@City", City);
-                        cmd.Parameters.AddWithValue("@State", State);
-                        cmd.Parameters.AddWithValue("@ZipCode", ZipCode);
+                        cmd.Parameters.AddWithValue("@FirstName", firstName);
+                        cmd.Parameters.AddWithValue("@LastName", lastName);
+                        cmd.Parameters.AddWithValue("@Address", address);
+                        cmd.Parameters.AddWithValue("@City", city);
+                        cmd.Parameters.AddWithValue("@State", state);
+                        cmd.Parameters.AddWithValue("@ZipCode", zipCode);
 
                         cn.Open();
                         
-                        NewPrimaryKeyValue = Convert.ToInt32(cmd.ExecuteScalar());
+                        newPrimaryKeyValue = Convert.ToInt32(cmd.ExecuteScalar());
                         success = true;
 
                     }
@@ -324,7 +324,7 @@ namespace DataOperations
                     {
                         HasErrors = true;
                         ExceptionMessage = ex.Message;
-                        NewPrimaryKeyValue = -1;
+                        newPrimaryKeyValue = -1;
                         success = false;
                     }
                 }
@@ -335,15 +335,15 @@ namespace DataOperations
         /// <summary>
         /// Variation of AddCustomer1 by using Parameters.Add rather than Parameters.AddWithValue
         /// </summary>
-        /// <param name="FirstName"></param>
-        /// <param name="LastName"></param>
-        /// <param name="Address"></param>
-        /// <param name="City"></param>
-        /// <param name="State"></param>
-        /// <param name="ZipCode"></param>
-        /// <param name="NewPrimaryKeyValue"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="address"></param>
+        /// <param name="city"></param>
+        /// <param name="state"></param>
+        /// <param name="zipCode"></param>
+        /// <param name="newPrimaryKeyValue"></param>
         /// <returns></returns>
-        public bool AddCustomer2(string FirstName, string LastName, string Address, string City, string State, string ZipCode, ref int NewPrimaryKeyValue)
+        public bool AddCustomer2(string firstName, string lastName, string address, string city, string state, string zipCode, ref int newPrimaryKeyValue)
         {
             bool success = false;
 
@@ -358,16 +358,16 @@ namespace DataOperations
 
                     try
                     {
-                        cmd.Parameters.Add(new SqlParameter("@FirstName", SqlDbType.NVarChar)).Value = FirstName;
-                        cmd.Parameters.Add(new SqlParameter("@LastName", SqlDbType.NVarChar)).Value = LastName;
-                        cmd.Parameters.Add(new SqlParameter("@Address", SqlDbType.NVarChar)).Value = Address;
-                        cmd.Parameters.Add(new SqlParameter("@City", SqlDbType.NVarChar)).Value = City;
-                        cmd.Parameters.Add(new SqlParameter("@State", SqlDbType.NVarChar)).Value = State;
-                        cmd.Parameters.Add(new SqlParameter("@ZipCode", SqlDbType.NVarChar)).Value = ZipCode;
+                        cmd.Parameters.Add(new SqlParameter("@FirstName", SqlDbType.NVarChar)).Value = firstName;
+                        cmd.Parameters.Add(new SqlParameter("@LastName", SqlDbType.NVarChar)).Value = lastName;
+                        cmd.Parameters.Add(new SqlParameter("@Address", SqlDbType.NVarChar)).Value = address;
+                        cmd.Parameters.Add(new SqlParameter("@City", SqlDbType.NVarChar)).Value = city;
+                        cmd.Parameters.Add(new SqlParameter("@State", SqlDbType.NVarChar)).Value = state;
+                        cmd.Parameters.Add(new SqlParameter("@ZipCode", SqlDbType.NVarChar)).Value = zipCode;
 
                         cn.Open();
 
-                        NewPrimaryKeyValue = Convert.ToInt32(cmd.ExecuteScalar());
+                        newPrimaryKeyValue = Convert.ToInt32(cmd.ExecuteScalar());
                         success = true;
 
                     }
@@ -375,7 +375,7 @@ namespace DataOperations
                     {
                         HasErrors = true;
                         ExceptionMessage = ex.Message;
-                        NewPrimaryKeyValue = -1;
+                        newPrimaryKeyValue = -1;
                         success = false;
                     }
                 }
@@ -493,9 +493,9 @@ namespace DataOperations
         /// <summary>
         /// Update a customer
         /// </summary>
-        /// <param name="CustomerRow"></param>
+        /// <param name="customerRow"></param>
         /// <returns></returns>
-        public bool UpdateCustomer(DataRow CustomerRow)
+        public bool UpdateCustomer(DataRow customerRow)
         {
             bool success = false;
 
@@ -505,13 +505,13 @@ namespace DataOperations
             {
                 using (var cmd = new SqlCommand { Connection = cn, CommandText = sql })
                 {
-                    cmd.Parameters.AddWithValue("@FirstName", CustomerRow.Field<string>("FirstName"));
-                    cmd.Parameters.AddWithValue("@LastName", CustomerRow.Field<string>("LastName"));
-                    cmd.Parameters.AddWithValue("Address", CustomerRow.Field<string>("Address"));
-                    cmd.Parameters.AddWithValue("@City", CustomerRow.Field<string>("City"));
-                    cmd.Parameters.AddWithValue("@State", CustomerRow.Field<string>("State"));
-                    cmd.Parameters.AddWithValue("@ZipCode", CustomerRow.Field<string>("ZipCode"));
-                    cmd.Parameters.AddWithValue("@id", CustomerRow.Field<int>("id"));
+                    cmd.Parameters.AddWithValue("@FirstName", customerRow.Field<string>("FirstName"));
+                    cmd.Parameters.AddWithValue("@LastName", customerRow.Field<string>("LastName"));
+                    cmd.Parameters.AddWithValue("Address", customerRow.Field<string>("Address"));
+                    cmd.Parameters.AddWithValue("@City", customerRow.Field<string>("City"));
+                    cmd.Parameters.AddWithValue("@State", customerRow.Field<string>("State"));
+                    cmd.Parameters.AddWithValue("@ZipCode", customerRow.Field<string>("ZipCode"));
+                    cmd.Parameters.AddWithValue("@id", customerRow.Field<int>("id"));
 
                     try
                     {
