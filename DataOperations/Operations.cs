@@ -171,6 +171,7 @@ namespace DataOperations
         {
             using (var cn = new SqlConnection { ConnectionString = ConnectionString })
             {
+                cn.Open();
                 var trans = cn.BeginTransaction("operation1");
                 
                 using (var cmd = new SqlCommand { Connection = cn, Transaction = trans })
@@ -179,7 +180,7 @@ namespace DataOperations
 
                     try
                     {
-                        cn.Open();
+                        
 
                         cmd.Parameters.AddWithValue("@CustomerId", customerId);
                         cmd.Parameters.AddWithValue("@OrderDate", DateTime.Now);
