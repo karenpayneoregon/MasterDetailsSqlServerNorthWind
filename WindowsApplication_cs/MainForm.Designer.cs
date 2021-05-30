@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.DetailsBindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.BindingNavigatorSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.BindingNavigatorMoveLastItem1 = new System.Windows.Forms.ToolStripButton();
@@ -58,6 +58,7 @@
             this.MasterBindingNavigatorDeleteCustomer = new System.Windows.Forms.ToolStripButton();
             this.MasterBindingNavigatorEditCustomer = new System.Windows.Forms.ToolStripButton();
             this.DetailBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.SplitContainer1 = new System.Windows.Forms.SplitContainer();
             this.DetailsDataGridView = new System.Windows.Forms.DataGridView();
             this.OrderIdColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,7 +72,7 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.calendarColumn1 = new DataGridViewCalendarLibrary.CalendarColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripCloneButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.MasterDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MasterBindingNavigator)).BeginInit();
             this.MasterBindingNavigator.SuspendLayout();
@@ -128,6 +129,7 @@
             // 
             this.BindingNavigatorPositionItem1.AccessibleName = "Position";
             this.BindingNavigatorPositionItem1.AutoSize = false;
+            this.BindingNavigatorPositionItem1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.BindingNavigatorPositionItem1.Name = "BindingNavigatorPositionItem1";
             this.BindingNavigatorPositionItem1.Size = new System.Drawing.Size(50, 23);
             this.BindingNavigatorPositionItem1.Text = "0";
@@ -203,7 +205,8 @@
             this.BindingNavigatorSeparator2,
             this.MasterBindingNavigatorAddNewItem,
             this.MasterBindingNavigatorDeleteCustomer,
-            this.MasterBindingNavigatorEditCustomer});
+            this.MasterBindingNavigatorEditCustomer,
+            this.toolStripCloneButton});
             this.MasterBindingNavigator.Location = new System.Drawing.Point(0, 0);
             this.MasterBindingNavigator.MoveFirstItem = this.BindingNavigatorMoveFirstItem;
             this.MasterBindingNavigator.MoveLastItem = this.BindingNavigatorMoveLastItem;
@@ -249,6 +252,7 @@
             // 
             this.BindingNavigatorPositionItem.AccessibleName = "Position";
             this.BindingNavigatorPositionItem.AutoSize = false;
+            this.BindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.BindingNavigatorPositionItem.Name = "BindingNavigatorPositionItem";
             this.BindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
             this.BindingNavigatorPositionItem.Text = "0";
@@ -342,6 +346,17 @@
             this.DetailBindingNavigator.TabIndex = 1;
             this.DetailBindingNavigator.Text = "BindingNavigator2";
             // 
+            // toolStripButton1
+            // 
+            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
+            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton1.Name = "toolStripButton1";
+            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Text = "parentIdButton";
+            this.toolStripButton1.ToolTipText = "Get parent row id";
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            // 
             // SplitContainer1
             // 
             this.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -399,9 +414,9 @@
             // 
             this.OrderDateColumn.DataPropertyName = "orderdate";
             this.OrderDateColumn.DateFormat = "";
-            dataGridViewCellStyle3.Format = "d";
-            dataGridViewCellStyle3.NullValue = null;
-            this.OrderDateColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Format = "d";
+            dataGridViewCellStyle1.NullValue = null;
+            this.OrderDateColumn.DefaultCellStyle = dataGridViewCellStyle1;
             this.OrderDateColumn.HeaderText = "Order date";
             this.OrderDateColumn.Name = "OrderDateColumn";
             this.OrderDateColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -460,9 +475,9 @@
             // 
             this.calendarColumn1.DataPropertyName = "orderdate";
             this.calendarColumn1.DateFormat = "";
-            dataGridViewCellStyle4.Format = "d";
-            dataGridViewCellStyle4.NullValue = null;
-            this.calendarColumn1.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Format = "d";
+            dataGridViewCellStyle2.NullValue = null;
+            this.calendarColumn1.DefaultCellStyle = dataGridViewCellStyle2;
             this.calendarColumn1.HeaderText = "Order date";
             this.calendarColumn1.Name = "calendarColumn1";
             this.calendarColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
@@ -475,16 +490,15 @@
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
             // 
-            // toolStripButton1
+            // toolStripCloneButton
             // 
-            this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton1.Text = "parentIdButton";
-            this.toolStripButton1.ToolTipText = "Get parent row id";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.toolStripCloneButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripCloneButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripCloneButton.Image")));
+            this.toolStripCloneButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripCloneButton.Name = "toolStripCloneButton";
+            this.toolStripCloneButton.Size = new System.Drawing.Size(23, 22);
+            this.toolStripCloneButton.Text = "toolStripButton2";
+            this.toolStripCloneButton.Click += new System.EventHandler(this.toolStripCloneButton_Click);
             // 
             // MainForm
             // 
@@ -559,6 +573,7 @@
         private DataGridViewCalendarLibrary.CalendarColumn calendarColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
+        private System.Windows.Forms.ToolStripButton toolStripCloneButton;
     }
 }
 

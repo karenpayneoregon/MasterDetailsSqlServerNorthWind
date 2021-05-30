@@ -167,6 +167,39 @@ namespace DataOperations
                 }
             }
         }
+        public void AddOrder1(int customerId, DateTime orderDate, string invoice, ref int newPrimaryKeyValue)
+        {
+            using (var cn = new SqlConnection { ConnectionString = ConnectionString })
+            {
+                using (var cmd = new SqlCommand { Connection = cn })
+                {
+                    cmd.CommandText = "INSERT INTO Orders (CustomerId,OrderDate,Invoice) VALUES (@CustomerId,@OrderDate,@Invoice)";
+
+                    try
+                    {
+                        cn.Open();
+
+                        cmd.Parameters.AddWithValue("@CustomerId", customerId);
+                        cmd.Parameters.AddWithValue("@OrderDate", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@Invoice", invoice);
+
+                        int result = cmd.ExecuteNonQuery();
+
+                        if (result == 1)
+                        {
+                            cmd.CommandText = "Select @@Identity";
+                            newPrimaryKeyValue = Convert.ToInt32(cmd.ExecuteScalar());
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        HasErrors = true;
+                        ExceptionMessage = ex.Message;
+                        newPrimaryKeyValue = -1;
+                    }
+                }
+            }
+        }
         /// <summary>
         /// We only permit order date changed as the invoice is a generated value that in my
         /// cases a business rule to not permit the value to change.
@@ -548,6 +581,11 @@ namespace DataOperations
             }
 
             return result;
+        }
+
+        public int MockAdd()
+        {
+            return 12;
         }
     }
 }

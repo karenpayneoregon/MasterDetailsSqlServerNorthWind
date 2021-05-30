@@ -318,5 +318,29 @@ namespace WindowsApplication_cs
                 MessageBox.Show("There are no child rows");
             }
         }
+
+        private void toolStripCloneButton_Click(object sender, EventArgs e)
+        {
+
+            var pRow = ((DataRowView)_bsMaster.Current).Row;
+
+            Operations ops = new Operations();
+            
+            int NewCustomerId = 0;
+
+            ops.AddCustomer(pRow.Field<string>("FirstName"), pRow.Field<string>("LastName"), pRow.Field<string>("Address"), pRow.Field<string>("City"), pRow.Field<string>("State"), pRow.Field<string>("State"), ref NewCustomerId);
+            var customerDataTable = ((DataSet)_bsMaster.DataSource).Tables["Customer"];
+            customerDataTable.Rows.Add(NewCustomerId, pRow.Field<string>("FirstName"), pRow.Field<string>("LastName"), pRow.Field<string>("Address"), pRow.Field<string>("City"), pRow.Field<string>("State"), pRow.Field<string>("ZipCode"));
+
+            var childDataRows = pRow.GetChildRows("CustomerOrders");
+            var newChildId = 0;
+            var detailTable = ((DataSet)(((BindingSource)_bsDetails.DataSource).DataSource)).Tables["Orders"];
+            
+            foreach (var dataRow in childDataRows)
+            {
+                ops.AddOrder1(NewCustomerId, dataRow.Field<DateTime>("OrderDate"), dataRow.Field<string>("Invoice"), ref newChildId);
+                detailTable.Rows.Add(newChildId, NewCustomerId, dataRow.Field<DateTime>("OrderDate"), dataRow.Field<string>("Invoice"));
+            }
+        }
     }
 }

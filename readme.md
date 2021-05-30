@@ -3,7 +3,11 @@ This solution shows how to setup a master-detail relationship using C# and SQL-S
 Customers is the high level master followed by orders which is a direct child of Customers and Orders is also
 the master to the third level, order details.
 
-[Link to this repository](https://github.com/karenpayneoregon/MasterDetailsSqlServerNorthWind)
+![img](DataOperations/Assets/masterDetails1.png)
+
+# Changes
+
+- **5/30/2021** Added code to clone the current master row and it's detail rows but not the grandchildern which can be done by learning what's been done with customers and orders to do the order details. 
 
 ## Instructions
 - Under the project DataOperations, review **CreateDatabaseAndData.sql** which is responsible for creating a database, tables and data. Make sure the database path matches the path to where you have SQL-Server installed.
