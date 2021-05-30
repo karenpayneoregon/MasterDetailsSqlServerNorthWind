@@ -3,6 +3,8 @@ This solution shows how to setup a master-detail relationship using C# and SQL-S
 Customers is the high level master followed by orders which is a direct child of Customers and Orders is also
 the master to the third level, order details.
 
+:green_circle: Uses SQL-Server but can easily be adapted to MS-Access for example.
+
 ![img](DataOperations/Assets/masterDetails1.png)
 
 # Changes
