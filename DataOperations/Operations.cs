@@ -171,7 +171,9 @@ namespace DataOperations
         {
             using (var cn = new SqlConnection { ConnectionString = ConnectionString })
             {
-                using (var cmd = new SqlCommand { Connection = cn })
+                var trans = cn.BeginTransaction("operation1");
+                
+                using (var cmd = new SqlCommand { Connection = cn, Transaction = trans })
                 {
                     cmd.CommandText = "INSERT INTO Orders (CustomerId,OrderDate,Invoice) VALUES (@CustomerId,@OrderDate,@Invoice)";
 
@@ -193,6 +195,7 @@ namespace DataOperations
                     }
                     catch (Exception ex)
                     {
+                        trans.Rollback();
                         HasErrors = true;
                         ExceptionMessage = ex.Message;
                         newPrimaryKeyValue = -1;
