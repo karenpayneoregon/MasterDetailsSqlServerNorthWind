@@ -57,6 +57,7 @@
             this.MasterBindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.MasterBindingNavigatorDeleteCustomer = new System.Windows.Forms.ToolStripButton();
             this.MasterBindingNavigatorEditCustomer = new System.Windows.Forms.ToolStripButton();
+            this.toolStripCloneButton = new System.Windows.Forms.ToolStripButton();
             this.DetailBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.SplitContainer1 = new System.Windows.Forms.SplitContainer();
@@ -72,7 +73,6 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.calendarColumn1 = new DataGridViewCalendarLibrary.CalendarColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.toolStripCloneButton = new System.Windows.Forms.ToolStripButton();
             ((System.ComponentModel.ISupportInitialize)(this.MasterDataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MasterBindingNavigator)).BeginInit();
             this.MasterBindingNavigator.SuspendLayout();
@@ -93,14 +93,14 @@
             this.DetailsBindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("DetailsBindingNavigatorDeleteItem.Image")));
             this.DetailsBindingNavigatorDeleteItem.Name = "DetailsBindingNavigatorDeleteItem";
             this.DetailsBindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.DetailsBindingNavigatorDeleteItem.Size = new System.Drawing.Size(23, 22);
+            this.DetailsBindingNavigatorDeleteItem.Size = new System.Drawing.Size(29, 28);
             this.DetailsBindingNavigatorDeleteItem.Text = "Delete";
             this.DetailsBindingNavigatorDeleteItem.Click += new System.EventHandler(this.DetailsBindingNavigatorDeleteItem_Click);
             // 
             // BindingNavigatorSeparator5
             // 
             this.BindingNavigatorSeparator5.Name = "BindingNavigatorSeparator5";
-            this.BindingNavigatorSeparator5.Size = new System.Drawing.Size(6, 25);
+            this.BindingNavigatorSeparator5.Size = new System.Drawing.Size(6, 31);
             // 
             // BindingNavigatorMoveLastItem1
             // 
@@ -108,7 +108,7 @@
             this.BindingNavigatorMoveLastItem1.Image = ((System.Drawing.Image)(resources.GetObject("BindingNavigatorMoveLastItem1.Image")));
             this.BindingNavigatorMoveLastItem1.Name = "BindingNavigatorMoveLastItem1";
             this.BindingNavigatorMoveLastItem1.RightToLeftAutoMirrorImage = true;
-            this.BindingNavigatorMoveLastItem1.Size = new System.Drawing.Size(23, 22);
+            this.BindingNavigatorMoveLastItem1.Size = new System.Drawing.Size(29, 28);
             this.BindingNavigatorMoveLastItem1.Text = "Move last";
             // 
             // BindingNavigatorMoveNextItem1
@@ -117,13 +117,13 @@
             this.BindingNavigatorMoveNextItem1.Image = ((System.Drawing.Image)(resources.GetObject("BindingNavigatorMoveNextItem1.Image")));
             this.BindingNavigatorMoveNextItem1.Name = "BindingNavigatorMoveNextItem1";
             this.BindingNavigatorMoveNextItem1.RightToLeftAutoMirrorImage = true;
-            this.BindingNavigatorMoveNextItem1.Size = new System.Drawing.Size(23, 22);
+            this.BindingNavigatorMoveNextItem1.Size = new System.Drawing.Size(29, 28);
             this.BindingNavigatorMoveNextItem1.Text = "Move next";
             // 
             // BindingNavigatorSeparator4
             // 
             this.BindingNavigatorSeparator4.Name = "BindingNavigatorSeparator4";
-            this.BindingNavigatorSeparator4.Size = new System.Drawing.Size(6, 25);
+            this.BindingNavigatorSeparator4.Size = new System.Drawing.Size(6, 31);
             // 
             // BindingNavigatorPositionItem1
             // 
@@ -131,14 +131,14 @@
             this.BindingNavigatorPositionItem1.AutoSize = false;
             this.BindingNavigatorPositionItem1.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.BindingNavigatorPositionItem1.Name = "BindingNavigatorPositionItem1";
-            this.BindingNavigatorPositionItem1.Size = new System.Drawing.Size(50, 23);
+            this.BindingNavigatorPositionItem1.Size = new System.Drawing.Size(65, 27);
             this.BindingNavigatorPositionItem1.Text = "0";
             this.BindingNavigatorPositionItem1.ToolTipText = "Current position";
             // 
             // BindingNavigatorSeparator3
             // 
             this.BindingNavigatorSeparator3.Name = "BindingNavigatorSeparator3";
-            this.BindingNavigatorSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.BindingNavigatorSeparator3.Size = new System.Drawing.Size(6, 31);
             // 
             // BindingNavigatorMovePreviousItem1
             // 
@@ -146,7 +146,7 @@
             this.BindingNavigatorMovePreviousItem1.Image = ((System.Drawing.Image)(resources.GetObject("BindingNavigatorMovePreviousItem1.Image")));
             this.BindingNavigatorMovePreviousItem1.Name = "BindingNavigatorMovePreviousItem1";
             this.BindingNavigatorMovePreviousItem1.RightToLeftAutoMirrorImage = true;
-            this.BindingNavigatorMovePreviousItem1.Size = new System.Drawing.Size(23, 22);
+            this.BindingNavigatorMovePreviousItem1.Size = new System.Drawing.Size(29, 28);
             this.BindingNavigatorMovePreviousItem1.Text = "Move previous";
             // 
             // BindingNavigatorMoveFirstItem1
@@ -155,13 +155,13 @@
             this.BindingNavigatorMoveFirstItem1.Image = ((System.Drawing.Image)(resources.GetObject("BindingNavigatorMoveFirstItem1.Image")));
             this.BindingNavigatorMoveFirstItem1.Name = "BindingNavigatorMoveFirstItem1";
             this.BindingNavigatorMoveFirstItem1.RightToLeftAutoMirrorImage = true;
-            this.BindingNavigatorMoveFirstItem1.Size = new System.Drawing.Size(23, 22);
+            this.BindingNavigatorMoveFirstItem1.Size = new System.Drawing.Size(29, 28);
             this.BindingNavigatorMoveFirstItem1.Text = "Move first";
             // 
             // BindingNavigatorCountItem1
             // 
             this.BindingNavigatorCountItem1.Name = "BindingNavigatorCountItem1";
-            this.BindingNavigatorCountItem1.Size = new System.Drawing.Size(35, 22);
+            this.BindingNavigatorCountItem1.Size = new System.Drawing.Size(45, 28);
             this.BindingNavigatorCountItem1.Text = "of {0}";
             this.BindingNavigatorCountItem1.ToolTipText = "Total number of items";
             // 
@@ -171,7 +171,7 @@
             this.DetailsBindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("DetailsBindingNavigatorAddNewItem.Image")));
             this.DetailsBindingNavigatorAddNewItem.Name = "DetailsBindingNavigatorAddNewItem";
             this.DetailsBindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.DetailsBindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
+            this.DetailsBindingNavigatorAddNewItem.Size = new System.Drawing.Size(29, 28);
             this.DetailsBindingNavigatorAddNewItem.Text = "Add new";
             this.DetailsBindingNavigatorAddNewItem.Click += new System.EventHandler(this.DetailsBindingNavigatorAddNewItem_Click);
             // 
@@ -181,10 +181,12 @@
             this.MasterDataGridView.AllowUserToDeleteRows = false;
             this.MasterDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MasterDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MasterDataGridView.Location = new System.Drawing.Point(0, 25);
+            this.MasterDataGridView.Location = new System.Drawing.Point(0, 31);
+            this.MasterDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MasterDataGridView.Name = "MasterDataGridView";
             this.MasterDataGridView.ReadOnly = true;
-            this.MasterDataGridView.Size = new System.Drawing.Size(622, 190);
+            this.MasterDataGridView.RowHeadersWidth = 51;
+            this.MasterDataGridView.Size = new System.Drawing.Size(829, 233);
             this.MasterDataGridView.TabIndex = 0;
             this.MasterDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MasterDataGridView_KeyDown);
             // 
@@ -193,6 +195,7 @@
             this.MasterBindingNavigator.AddNewItem = null;
             this.MasterBindingNavigator.CountItem = this.BindingNavigatorCountItem;
             this.MasterBindingNavigator.DeleteItem = null;
+            this.MasterBindingNavigator.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.MasterBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BindingNavigatorMoveFirstItem,
             this.BindingNavigatorMovePreviousItem,
@@ -214,14 +217,14 @@
             this.MasterBindingNavigator.MovePreviousItem = this.BindingNavigatorMovePreviousItem;
             this.MasterBindingNavigator.Name = "MasterBindingNavigator";
             this.MasterBindingNavigator.PositionItem = this.BindingNavigatorPositionItem;
-            this.MasterBindingNavigator.Size = new System.Drawing.Size(622, 25);
+            this.MasterBindingNavigator.Size = new System.Drawing.Size(829, 31);
             this.MasterBindingNavigator.TabIndex = 3;
             this.MasterBindingNavigator.Text = "BindingNavigator1";
             // 
             // BindingNavigatorCountItem
             // 
             this.BindingNavigatorCountItem.Name = "BindingNavigatorCountItem";
-            this.BindingNavigatorCountItem.Size = new System.Drawing.Size(35, 22);
+            this.BindingNavigatorCountItem.Size = new System.Drawing.Size(45, 28);
             this.BindingNavigatorCountItem.Text = "of {0}";
             this.BindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
@@ -231,7 +234,7 @@
             this.BindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("BindingNavigatorMoveFirstItem.Image")));
             this.BindingNavigatorMoveFirstItem.Name = "BindingNavigatorMoveFirstItem";
             this.BindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.BindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(23, 22);
+            this.BindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(29, 28);
             this.BindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // BindingNavigatorMovePreviousItem
@@ -240,13 +243,13 @@
             this.BindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("BindingNavigatorMovePreviousItem.Image")));
             this.BindingNavigatorMovePreviousItem.Name = "BindingNavigatorMovePreviousItem";
             this.BindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.BindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(23, 22);
+            this.BindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(29, 28);
             this.BindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // BindingNavigatorSeparator
             // 
             this.BindingNavigatorSeparator.Name = "BindingNavigatorSeparator";
-            this.BindingNavigatorSeparator.Size = new System.Drawing.Size(6, 25);
+            this.BindingNavigatorSeparator.Size = new System.Drawing.Size(6, 31);
             // 
             // BindingNavigatorPositionItem
             // 
@@ -254,14 +257,14 @@
             this.BindingNavigatorPositionItem.AutoSize = false;
             this.BindingNavigatorPositionItem.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.BindingNavigatorPositionItem.Name = "BindingNavigatorPositionItem";
-            this.BindingNavigatorPositionItem.Size = new System.Drawing.Size(50, 23);
+            this.BindingNavigatorPositionItem.Size = new System.Drawing.Size(65, 27);
             this.BindingNavigatorPositionItem.Text = "0";
             this.BindingNavigatorPositionItem.ToolTipText = "Current position";
             // 
             // BindingNavigatorSeparator1
             // 
             this.BindingNavigatorSeparator1.Name = "BindingNavigatorSeparator1";
-            this.BindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.BindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 31);
             // 
             // BindingNavigatorMoveNextItem
             // 
@@ -269,7 +272,7 @@
             this.BindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("BindingNavigatorMoveNextItem.Image")));
             this.BindingNavigatorMoveNextItem.Name = "BindingNavigatorMoveNextItem";
             this.BindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.BindingNavigatorMoveNextItem.Size = new System.Drawing.Size(23, 22);
+            this.BindingNavigatorMoveNextItem.Size = new System.Drawing.Size(29, 28);
             this.BindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // BindingNavigatorMoveLastItem
@@ -278,13 +281,13 @@
             this.BindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("BindingNavigatorMoveLastItem.Image")));
             this.BindingNavigatorMoveLastItem.Name = "BindingNavigatorMoveLastItem";
             this.BindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.BindingNavigatorMoveLastItem.Size = new System.Drawing.Size(23, 22);
+            this.BindingNavigatorMoveLastItem.Size = new System.Drawing.Size(29, 28);
             this.BindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // BindingNavigatorSeparator2
             // 
             this.BindingNavigatorSeparator2.Name = "BindingNavigatorSeparator2";
-            this.BindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.BindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 31);
             // 
             // MasterBindingNavigatorAddNewItem
             // 
@@ -292,7 +295,7 @@
             this.MasterBindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("MasterBindingNavigatorAddNewItem.Image")));
             this.MasterBindingNavigatorAddNewItem.Name = "MasterBindingNavigatorAddNewItem";
             this.MasterBindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.MasterBindingNavigatorAddNewItem.Size = new System.Drawing.Size(23, 22);
+            this.MasterBindingNavigatorAddNewItem.Size = new System.Drawing.Size(29, 28);
             this.MasterBindingNavigatorAddNewItem.Text = "Add new";
             this.MasterBindingNavigatorAddNewItem.Click += new System.EventHandler(this.MasterBindingNavigatorAddNewItem_Click);
             // 
@@ -302,7 +305,7 @@
             this.MasterBindingNavigatorDeleteCustomer.Image = ((System.Drawing.Image)(resources.GetObject("MasterBindingNavigatorDeleteCustomer.Image")));
             this.MasterBindingNavigatorDeleteCustomer.Name = "MasterBindingNavigatorDeleteCustomer";
             this.MasterBindingNavigatorDeleteCustomer.RightToLeftAutoMirrorImage = true;
-            this.MasterBindingNavigatorDeleteCustomer.Size = new System.Drawing.Size(23, 22);
+            this.MasterBindingNavigatorDeleteCustomer.Size = new System.Drawing.Size(29, 28);
             this.MasterBindingNavigatorDeleteCustomer.Text = "Delete";
             this.MasterBindingNavigatorDeleteCustomer.Click += new System.EventHandler(this.MasterBindingNavigatorDeleteCustomer_Click);
             // 
@@ -312,16 +315,27 @@
             this.MasterBindingNavigatorEditCustomer.Image = ((System.Drawing.Image)(resources.GetObject("MasterBindingNavigatorEditCustomer.Image")));
             this.MasterBindingNavigatorEditCustomer.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.MasterBindingNavigatorEditCustomer.Name = "MasterBindingNavigatorEditCustomer";
-            this.MasterBindingNavigatorEditCustomer.Size = new System.Drawing.Size(23, 22);
+            this.MasterBindingNavigatorEditCustomer.Size = new System.Drawing.Size(29, 28);
             this.MasterBindingNavigatorEditCustomer.Text = "ToolStripButton1";
             this.MasterBindingNavigatorEditCustomer.ToolTipText = "Edit";
             this.MasterBindingNavigatorEditCustomer.Click += new System.EventHandler(this.MasterBindingNavigatorEditCustomer_Click);
+            // 
+            // toolStripCloneButton
+            // 
+            this.toolStripCloneButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripCloneButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripCloneButton.Image")));
+            this.toolStripCloneButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripCloneButton.Name = "toolStripCloneButton";
+            this.toolStripCloneButton.Size = new System.Drawing.Size(29, 28);
+            this.toolStripCloneButton.Text = "toolStripButton2";
+            this.toolStripCloneButton.Click += new System.EventHandler(this.toolStripCloneButton_Click);
             // 
             // DetailBindingNavigator
             // 
             this.DetailBindingNavigator.AddNewItem = null;
             this.DetailBindingNavigator.CountItem = this.BindingNavigatorCountItem1;
             this.DetailBindingNavigator.DeleteItem = null;
+            this.DetailBindingNavigator.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.DetailBindingNavigator.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.BindingNavigatorMoveFirstItem1,
             this.BindingNavigatorMovePreviousItem1,
@@ -342,7 +356,7 @@
             this.DetailBindingNavigator.MovePreviousItem = this.BindingNavigatorMovePreviousItem1;
             this.DetailBindingNavigator.Name = "DetailBindingNavigator";
             this.DetailBindingNavigator.PositionItem = this.BindingNavigatorPositionItem1;
-            this.DetailBindingNavigator.Size = new System.Drawing.Size(622, 25);
+            this.DetailBindingNavigator.Size = new System.Drawing.Size(829, 31);
             this.DetailBindingNavigator.TabIndex = 1;
             this.DetailBindingNavigator.Text = "BindingNavigator2";
             // 
@@ -352,7 +366,7 @@
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton1.Size = new System.Drawing.Size(29, 28);
             this.toolStripButton1.Text = "parentIdButton";
             this.toolStripButton1.ToolTipText = "Get parent row id";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
@@ -361,6 +375,7 @@
             // 
             this.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SplitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.SplitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.SplitContainer1.Name = "SplitContainer1";
             this.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -373,8 +388,9 @@
             // 
             this.SplitContainer1.Panel2.Controls.Add(this.DetailsDataGridView);
             this.SplitContainer1.Panel2.Controls.Add(this.DetailBindingNavigator);
-            this.SplitContainer1.Size = new System.Drawing.Size(622, 437);
-            this.SplitContainer1.SplitterDistance = 215;
+            this.SplitContainer1.Size = new System.Drawing.Size(829, 538);
+            this.SplitContainer1.SplitterDistance = 264;
+            this.SplitContainer1.SplitterWidth = 5;
             this.SplitContainer1.TabIndex = 4;
             // 
             // DetailsDataGridView
@@ -389,9 +405,11 @@
             this.InvoiceColumn,
             this.UpdateButtonColumn});
             this.DetailsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DetailsDataGridView.Location = new System.Drawing.Point(0, 25);
+            this.DetailsDataGridView.Location = new System.Drawing.Point(0, 31);
+            this.DetailsDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DetailsDataGridView.Name = "DetailsDataGridView";
-            this.DetailsDataGridView.Size = new System.Drawing.Size(622, 193);
+            this.DetailsDataGridView.RowHeadersWidth = 51;
+            this.DetailsDataGridView.Size = new System.Drawing.Size(829, 238);
             this.DetailsDataGridView.TabIndex = 2;
             this.DetailsDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DetailsDataGridView_CellContentClick);
             this.DetailsDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DetailsDataGridView_KeyDown);
@@ -400,15 +418,19 @@
             // 
             this.OrderIdColumn.DataPropertyName = "id";
             this.OrderIdColumn.HeaderText = "Id";
+            this.OrderIdColumn.MinimumWidth = 6;
             this.OrderIdColumn.Name = "OrderIdColumn";
             this.OrderIdColumn.ReadOnly = true;
+            this.OrderIdColumn.Width = 125;
             // 
             // CustomerIdColumn
             // 
             this.CustomerIdColumn.DataPropertyName = "customerid";
             this.CustomerIdColumn.HeaderText = "Customer";
+            this.CustomerIdColumn.MinimumWidth = 6;
             this.CustomerIdColumn.Name = "CustomerIdColumn";
             this.CustomerIdColumn.ReadOnly = true;
+            this.CustomerIdColumn.Width = 125;
             // 
             // OrderDateColumn
             // 
@@ -418,30 +440,37 @@
             dataGridViewCellStyle1.NullValue = null;
             this.OrderDateColumn.DefaultCellStyle = dataGridViewCellStyle1;
             this.OrderDateColumn.HeaderText = "Order date";
+            this.OrderDateColumn.MinimumWidth = 6;
             this.OrderDateColumn.Name = "OrderDateColumn";
             this.OrderDateColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.OrderDateColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.OrderDateColumn.Width = 125;
             // 
             // InvoiceColumn
             // 
             this.InvoiceColumn.DataPropertyName = "invoice";
             this.InvoiceColumn.HeaderText = "Invoice";
+            this.InvoiceColumn.MinimumWidth = 6;
             this.InvoiceColumn.Name = "InvoiceColumn";
             this.InvoiceColumn.ReadOnly = true;
+            this.InvoiceColumn.Width = 125;
             // 
             // UpdateButtonColumn
             // 
             this.UpdateButtonColumn.HeaderText = "";
+            this.UpdateButtonColumn.MinimumWidth = 6;
             this.UpdateButtonColumn.Name = "UpdateButtonColumn";
             this.UpdateButtonColumn.Text = "Update";
+            this.UpdateButtonColumn.Width = 125;
             // 
             // Panel1
             // 
             this.Panel1.Controls.Add(this.OrderDetailsDataGridView);
             this.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.Panel1.Location = new System.Drawing.Point(0, 437);
+            this.Panel1.Location = new System.Drawing.Point(0, 538);
+            this.Panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Panel1.Name = "Panel1";
-            this.Panel1.Size = new System.Drawing.Size(622, 117);
+            this.Panel1.Size = new System.Drawing.Size(829, 144);
             this.Panel1.TabIndex = 5;
             // 
             // OrderDetailsDataGridView
@@ -451,25 +480,31 @@
             this.OrderDetailsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.OrderDetailsDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.OrderDetailsDataGridView.Location = new System.Drawing.Point(0, 0);
+            this.OrderDetailsDataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.OrderDetailsDataGridView.Name = "OrderDetailsDataGridView";
             this.OrderDetailsDataGridView.ReadOnly = true;
             this.OrderDetailsDataGridView.RowHeadersVisible = false;
-            this.OrderDetailsDataGridView.Size = new System.Drawing.Size(622, 117);
+            this.OrderDetailsDataGridView.RowHeadersWidth = 51;
+            this.OrderDetailsDataGridView.Size = new System.Drawing.Size(829, 144);
             this.OrderDetailsDataGridView.TabIndex = 0;
             // 
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "id";
             this.dataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Width = 125;
             // 
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "customerid";
             this.dataGridViewTextBoxColumn2.HeaderText = "Customer";
+            this.dataGridViewTextBoxColumn2.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 125;
             // 
             // calendarColumn1
             // 
@@ -479,34 +514,29 @@
             dataGridViewCellStyle2.NullValue = null;
             this.calendarColumn1.DefaultCellStyle = dataGridViewCellStyle2;
             this.calendarColumn1.HeaderText = "Order date";
+            this.calendarColumn1.MinimumWidth = 6;
             this.calendarColumn1.Name = "calendarColumn1";
             this.calendarColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.calendarColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.calendarColumn1.Width = 125;
             // 
             // dataGridViewTextBoxColumn3
             // 
             this.dataGridViewTextBoxColumn3.DataPropertyName = "invoice";
             this.dataGridViewTextBoxColumn3.HeaderText = "Invoice";
+            this.dataGridViewTextBoxColumn3.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
             this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // toolStripCloneButton
-            // 
-            this.toolStripCloneButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripCloneButton.Image = ((System.Drawing.Image)(resources.GetObject("toolStripCloneButton.Image")));
-            this.toolStripCloneButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripCloneButton.Name = "toolStripCloneButton";
-            this.toolStripCloneButton.Size = new System.Drawing.Size(23, 22);
-            this.toolStripCloneButton.Text = "toolStripButton2";
-            this.toolStripCloneButton.Click += new System.EventHandler(this.toolStripCloneButton_Click);
+            this.dataGridViewTextBoxColumn3.Width = 125;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(622, 554);
+            this.ClientSize = new System.Drawing.Size(829, 682);
             this.Controls.Add(this.SplitContainer1);
             this.Controls.Add(this.Panel1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Master details simple example for add new detail row";
